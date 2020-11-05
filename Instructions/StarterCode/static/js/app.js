@@ -44,11 +44,18 @@ var hoverText = sample1.otu_labels.slice(0,10).reverse()
         type: 'bar',
         orientation: 'h'
     };
-  
+    var barlayout ={
+        title:{text:"OTU Ids"},
+        xaxis:{title:"Infection Values"},
+        margin : {
+            l:-300, r:100
+        } 
+    }
     var data = [trace];
   
     Plotly.newPlot('bar', data);
-})
+console.log(sample1.otu_ids)
+    // })
 //creating bubble chart
 var trace2 = {
         x: sample1.otu_ids,
@@ -60,36 +67,18 @@ var trace2 = {
             color: sample1.otu_ids
         }
     };
+    //creating layout
+    var bbllayout ={
+        title:{text:"Sample vs OTU Ids"},
+        xaxis:{title:"Infection Values"},
+        yaxis:{title:"Sample Values"},
+        height: 650, width:1200 
+    }
     var data2 = [trace2];
-    Plotly.newPlot('bubble',data2);
+    Plotly.newPlot('bubble',data2,bbllayout);
     })
-};
+})};
 
 function optionChanged(userID){
     metadataLoading(userID)
 };
-
-
-
-// Creating charts
-// var drawChart = function(xData, yData, hoverText, metaData) {
-//     var mdPanel = d3.select("#sample-metadata");
-//     mdPanel.html("");
-
-    // Object.entries(metaData).forEach(([key, value]) => {
-    //     mdPanel.append("p").text(`${key}: ${value}`);
-    // });
-  
-    // var trace = {
-    //     x: xData,
-    //     y: yData,
-    //     text: hoverText,
-    //     type: 'bar',
-    //     orientation: 'h'
-    // };
-  
-    // var data = [trace];
-  
-    // Plotly.newPlot('bar', data);
-  
-    
