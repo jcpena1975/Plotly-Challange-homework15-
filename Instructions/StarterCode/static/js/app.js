@@ -24,7 +24,7 @@ function metadataLoading(userID) {
             var metaBody =  metadataBody.append("p")
             metaBody.text(`${key} ${value}`) 
         });
-// // Creating charts
+// // Creating bar charts
 
 d3.json("samples.json").then((sampleData) => {
     var samples = sampleData.samples
@@ -33,7 +33,7 @@ d3.json("samples.json").then((sampleData) => {
 var fSample = samples.filter(ID =>ID.id == userID)
 var sample1 = fSample[0]
 var xData = sample1.sample_values.slice(0,10).reverse()
-var yData = sample1.otu_ids.slice(0,10).reverse()
+var yData = sample1.otu_ids.map(ID =>`Otuid ${ID}`).slice(0,10).reverse()
 var hoverText = sample1.otu_labels.slice(0,10).reverse()
 
 
@@ -49,6 +49,19 @@ var hoverText = sample1.otu_labels.slice(0,10).reverse()
   
     Plotly.newPlot('bar', data);
 })
+//creating bubble chart
+var trace2 = {
+        x: sample1.otu_ids,
+        y: sample1.sample_values,
+        text: sample1.otu_labels,
+        mode: 'markers',
+        marker: {
+            size: sample1.sample_values,
+            color: sample1.otu_ids
+        }
+    };
+    var data2 = [trace2];
+    Plotly.newPlot('bubble',data2);
     })
 };
 
@@ -79,13 +92,4 @@ function optionChanged(userID){
   
     // Plotly.newPlot('bar', data);
   
-    // var trace2 = {
-    //     x: xData,
-    //     y: yData,
-    //     text: hoverText,
-    //     mode: 'markers',
-    //     marker: {
-    //         size: yData,
-    //         color: xData
-    //     }
-    // }};
+    
