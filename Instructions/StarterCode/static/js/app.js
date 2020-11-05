@@ -25,11 +25,31 @@ function metadataLoading(userID) {
             metaBody.text(`${key} ${value}`) 
         });
 // // Creating charts
-// d3.json("samples.json").then((sampleData) => {
-//     var samples = sampleData.samples
-//     console.log(samples)
 
+d3.json("samples.json").then((sampleData) => {
+    var samples = sampleData.samples
+    console.log(samples)
+    //Filtering sample ID
+var fSample = samples.filter(ID =>ID.id == userID)
+var sample1 = fSample[0]
+var xData = sample1.sample_values.slice(0,10).reverse()
+var yData = sample1.otu_ids.slice(0,10).reverse()
+var hoverText = sample1.otu_labels.slice(0,10).reverse()
+
+
+ var trace = {
+        x: xData,
+        y: yData,
+        text: hoverText,
+        type: 'bar',
+        orientation: 'h'
+    };
+  
+    var data = [trace];
+  
+    Plotly.newPlot('bar', data);
 })
+    })
 };
 
 function optionChanged(userID){
